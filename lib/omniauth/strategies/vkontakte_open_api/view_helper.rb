@@ -30,7 +30,7 @@ HEADER
           window.location = '/omniauth/vkontakte/callback';
         });*/
     VK.init({
-      apiId: #{Rails.configuration.vkontakte_app_id},
+      apiId: #{OmniAuth.config.vkontakte_app_id},
       nameTransportPath: "/xd_receiver.html"
     });
     VK.UI.button('vk_login');

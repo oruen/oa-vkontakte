@@ -2,6 +2,12 @@ require 'omniauth/vkontakte'
 require 'omniauth/strategies/vkontakte_open_api/view_helper'
 
 module OmniAuth
+  class Configuration
+    attr_accessor :vkontakte_app_id
+  end
+end
+
+module OmniAuth
   module Strategies
     class VkontakteOpenApi
       include OmniAuth::Strategy
@@ -9,7 +15,7 @@ module OmniAuth
 
       def initialize(app, app_id, options = {})
         @options = options
-        Rails.configuration.vkontakte_app_id = app_id
+        OmniAuth.config.vkontakte_app_id = app_id
         super(app, :vkontakte)
       end
 

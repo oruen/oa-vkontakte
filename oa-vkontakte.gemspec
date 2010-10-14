@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
      "lib/omniauth/strategies/vkontakte_open_api.rb",
      "lib/omniauth/strategies/vkontakte_open_api/view_helper.rb",
      "lib/omniauth/vkontakte.rb",
+     "oa-vkontakte.gemspec",
      "spec/oa-vkontakte_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
