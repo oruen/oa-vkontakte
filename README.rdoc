@@ -1,6 +1,38 @@
 = oa-vkontakte
 
-Description goes here.
+Расширение для OmniAuth, реализующее аутентификацию через Vkontate Open Api.
+
+== Установка
+
+  gem install oa-vkontakte
+
+Добавить в config/initializers/moniauth.rb:
+
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider :vkontakte_open_api, <ID приложения>
+  end
+
+Если ещё не определен, добавить путь в config/routes.rb:
+
+  match '/auth/:provider/callback' => 'authentications#create'
+
+В нужную вьюху добавить хелпер, рисующий кнопку входа:
+
+  <%= vkontakte_login_button %>
+
+Этот хелпер предполагает наличие jQuery на странице для совершения ajax запроса.
+
+Также кнопка с подключенной jQuery доступна по адресу /auth/vkontakte. Можно пропробовать встроить её как iframe.
+
+После клика на кнопку и разрешения добавления приложения, будет совершен запрос на /auth/vkontakte/callback.
+В action, к которому будет привязан этот путь, будет доступна переменная request["omniauth.auth"].
+
+== Ссылки
+
+OmniAuth: http://github.com/intridea/omniauth
+Интеграция OmniAuth и Devise:
+ railscasts.com/episodes/235-omniauth-part-1
+ railscasts.com/episodes/236-omniauth-part-2
 
 == Note on Patches/Pull Requests
  
