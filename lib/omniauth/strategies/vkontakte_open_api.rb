@@ -9,7 +9,7 @@ module OmniAuth
 
       def initialize(app, app_id, options = {})
         @options = options
-        @app_id = app_id
+        Rails.configuration.vkontakte_app_id = app_id
         super(app, :vkontakte)
       end
 
@@ -20,7 +20,6 @@ module OmniAuth
       end
       
       def auth_hash
-        pp request
         OmniAuth::Utils.deep_merge(super(), {
           'uid' => request[:uid],
           'user_info' => {

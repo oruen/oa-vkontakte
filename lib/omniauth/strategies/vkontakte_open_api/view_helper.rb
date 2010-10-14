@@ -30,32 +30,32 @@ HEADER
           window.location = '/omniauth/vkontakte/callback';
         });*/
     VK.init({
-      apiId: #{@app_id},
+      apiId: #{Rails.configuration.vkontakte_app_id},
       nameTransportPath: "/xd_receiver.html"
     });
     VK.UI.button('vk_login');
   };
   LOGINZA = {
     vkLoginResult: function (r) {
-      console.log('called vkLoginResult');
+      //console.log('called vkLoginResult');
       if (r.session && r.session.expire != "0") {
         LOGINZA.vkGetUserProfile(LOGINZA.vkPutUserProfile)
       } else if (r.session.expire == "0") {
-        console.log('VK.bugFix recall login');
+        //console.log('VK.bugFix recall login');
         VK.Observer.subscribe("auth.sessionChange", function (r) {
-          console.log('called bugFuxFunc');
+          //console.log('called bugFuxFunc');
           VK.Observer.unsubscribe("auth.sessionChange");
           if (r.session && r.session.expire != "0") {
             LOGINZA.vkGetUserProfile(LOGINZA.vkPutUserProfile)
           } else {
-            console.log("FAILED")
+            //console.log("FAILED")
           }
         });
         VK.Auth.login()
       }
     },
     vkGetUserProfile: function (callFunc) {
-      console.log('called vkGetUserProfile');
+      //console.log('called vkGetUserProfile');
       var code;
       code = 'return {';
       code += 'me: API.getProfiles({uids: API.getVariable({key: 1280}), fields: "nickname,sex,bdate,city,country,photo,photo_big,has_mobile,rate,home_phone,mobile_phone"})[0]';
@@ -66,18 +66,18 @@ HEADER
       callFunc);
     },
     vkPutUserProfile: function (data) {
-      console.log('called vkPutUserProfile');
+      //console.log('called vkPutUserProfile');
       if (data.response) {
         r = data.response;
         $.ajax({
           type: "POST",
-          url: '#{OmniAuth.config.path_prefix}/#{@name}/callback',
+          url: '#{OmniAuth.config.path_prefix}/vkontakte/callback',
           data: r.me,
           success: function () {
             document.location.reload();
           }
         });
-        console.log(data);
+        //console.log(data);
       }
     }
 	};

@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "oa-vkontakte"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{OmniAuth extension for vkontakte.ru authentication}
+    gem.description = %Q{OmniAuth extension for vkontakte.ru authentication}
     gem.email = "oruenu@gmail.com"
     gem.homepage = "http://github.com/oruen/oa-vkontakte"
     gem.authors = ["Nick Recobra"]
