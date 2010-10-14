@@ -11,7 +11,7 @@ begin
     gem.homepage = "http://github.com/oruen/oa-vkontakte"
     gem.authors = ["Nick Recobra"]
     gem.rubyforge_project = "oa-vkontakte"
-    gem.add_dependency 'oa-core'
+    gem.add_dependency 'oa-core', '~>0.1.4'
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "yard", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
