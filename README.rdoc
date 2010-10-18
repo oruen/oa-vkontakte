@@ -6,7 +6,7 @@
 
   gem install oa-vkontakte
 
-Добавить в config/initializers/moniauth.rb:
+Добавить в config/initializers/omniauth.rb:
 
   Rails.application.config.middleware.use OmniAuth::Builder do
     provider :vkontakte_open_api, <ID приложения>
