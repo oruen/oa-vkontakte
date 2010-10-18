@@ -20,16 +20,27 @@
 
   <%= vkontakte_login_button %>
 
-Этот хелпер предполагает наличие jQuery на странице для совершения ajax запроса.
+Также кнопка доступна по адресу /auth/vkontakte. Можно пропробовать встроить её как iframe.
 
-Также кнопка с подключенной jQuery доступна по адресу /auth/vkontakte. Можно пропробовать встроить её как iframe.
-
-После клика на кнопку и разрешения добавления приложения, будет совершен ajax-запрос на /auth/vkontakte/callback.
+После клика на кнопку и разрешения добавления приложения, будет совершен POST-запрос на /auth/vkontakte/callback.
 В action, к которому будет привязан этот путь, будет доступна переменная
 
-  request["omniauth.auth"].
+  request["omniauth.auth"]
 
-После ajax-запроса страница, на которой находится пользователь, будет перезагружена.
+Содержание этой переменной примерно следующее:
+
+  {
+    'uid' => '1234567890', # ID пользователя vkontakte.ru
+    'provider' => 'vkontakte',
+    'user_info' => {
+      'name' => 'Nick Recobra',
+      'nickname' => 'oruen',
+      'firstName' => 'Nick',
+      'lastName' => 'Recobra',
+      'image' => 'http://cs191.vkontakte.ru/u00001/e_375bc433.jpg', # путь до вконтактовского аватара
+      'urls' => { 'Page' => 'http://vkontakte.ru/id1234567890' } 
+    }
+  }
 
 == Ссылки
 

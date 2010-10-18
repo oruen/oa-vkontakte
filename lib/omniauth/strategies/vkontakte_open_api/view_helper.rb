@@ -16,7 +16,6 @@ module OmniAuth
   <head> 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Вход во ВКонтакте</title>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
   </head> 
   <body>
 HEADER
@@ -27,64 +26,82 @@ HEADER
 <div id="vk_api_transport"></div>
 <script type="text/javascript">
   window.vkAsyncInit = function() {
-        /*VK.Observer.subscribe('auth.login', function(response) {
-          window.location = '/omniauth/vkontakte/callback';
-        });*/
     VK.init({
-      apiId: #{OmniAuth.config.vkontakte_app_id},
+      apiId: '#{OmniAuth.config.vkontakte_app_id}',
       nameTransportPath: "/xd_receiver.html"
     });
     VK.UI.button('vk_login');
   };
-  LOGINZA = {
-    vkLoginResult: function (r) {
-      //console.log('called vkLoginResult');
-      if (r.session && r.session.expire != "0") {
-        LOGINZA.vkGetUserProfile(LOGINZA.vkPutUserProfile)
-      } else if (r.session.expire == "0") {
-        //console.log('VK.bugFix recall login');
-        VK.Observer.subscribe("auth.sessionChange", function (r) {
-          //console.log('called bugFuxFunc');
-          VK.Observer.unsubscribe("auth.sessionChange");
-          if (r.session && r.session.expire != "0") {
-            LOGINZA.vkGetUserProfile(LOGINZA.vkPutUserProfile)
-          } else {
-            //console.log("FAILED")
+  vkLogin = {
+    doLogin: function() {
+      VK.Auth.login(vkLogin.loginResult);
+    },
+    redirectWithPost: function(url, data) {
+      method = "POST";
+      data = data || {};
+      var form = document.createElement("form"),
+          input;
+      form.setAttribute("action", url);
+      form.setAttribute("method", "POST");
+  
+      for (var property in data) {
+        if (data.hasOwnProperty(property)) {
+          var value = data[property];
+          if (value instanceof Array) {
+            for (var i = 0, l = value.length; i < l; i++) {
+              input = document.createElement("input");
+              input.setAttribute("type", "hidden");
+              input.setAttribute("name", property);
+              input.setAttribute("value", value[i]);
+              form.appendChild(input);
+            }
           }
-        });
-        VK.Auth.login()
+          else {
+            input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", property);
+            input.setAttribute("value", value);
+            form.appendChild(input);
+          }
+        }
+      }
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+    },
+    loginResult: function (r) {
+      if (r.session) {
+        if (r.session.expire != "0") {
+          vkLogin.getUserProfile(vkLogin.putUserProfile);
+        } else if (r.session.expire == "0") {
+          VK.Observer.subscribe("auth.sessionChange", function (r) {
+            VK.Observer.unsubscribe("auth.sessionChange");
+            if (r.session && r.session.expire != "0") {
+              vkLogin.getUserProfile(vkLogin.putUserProfile)
+            } else {
+            }
+          });
+          VK.Auth.login()
+        }
       }
     },
-    vkGetUserProfile: function (callFunc) {
-      //console.log('called vkGetUserProfile');
+    getUserProfile: function (callFunc) {
       var code;
       code = 'return {';
-      code += 'me: API.getProfiles({uids: API.getVariable({key: 1280}), fields: "nickname,sex,bdate,city,country,photo,photo_big,has_mobile,rate,home_phone,mobile_phone"})[0]';
+      code += 'me: API.getProfiles({uids: API.getVariable({key: 1280}), fields: "nickname,sex,photo"})[0]';
       code += '};';
       VK.Api.call('execute', {
         'code': code
       },
       callFunc);
     },
-    vkPutUserProfile: function (data) {
-      //console.log('called vkPutUserProfile');
+    putUserProfile: function (data) {
       if (data.response) {
         r = data.response;
-        $.ajax({
-          type: "POST",
-          url: '#{OmniAuth.config.path_prefix}/vkontakte/callback',
-          data: r.me,
-          success: function () {
-            document.location.reload();
-          }
-        });
-        //console.log(data);
+        vkLogin.redirectWithPost('#{OmniAuth.config.path_prefix}/vkontakte/callback', r.me);
       }
     }
 	};
-  window.doLogin = function() {
-    VK.Auth.login(LOGINZA.vkLoginResult);
-  };
   (function() {
     var el = document.createElement("script");
     el.type = "text/javascript";
@@ -94,7 +111,7 @@ HEADER
     document.getElementById("vk_api_transport").appendChild(el);
   }());
 </script>
-<div id="vk_login" style="margin: 0 auto 20px auto;" onclick="doLogin();"></div>
+<div id="vk_login" style="margin: 0 auto 20px auto;" onclick="vkLogin.doLogin();"></div>
 BUTTON
           end
 
