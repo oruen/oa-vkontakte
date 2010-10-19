@@ -1,3 +1,4 @@
+# coding: utf-8
 module OmniAuth
   module Strategies
     class VkontakteOpenApi
@@ -37,12 +38,14 @@ HEADER
       VK.Auth.login(vkLogin.loginResult);
     },
     redirectWithPost: function(url, data) {
-      method = "POST";
       data = data || {};
+      #{ respond_to?(:request_forgery_protection_token) && respond_to?(:form_authenticity_token) ?
+      "data['#{request_forgery_protection_token}'] = '#{form_authenticity_token}'; var method = 'POST';" :
+      "var method = 'GET';" }
       var form = document.createElement("form"),
           input;
       form.setAttribute("action", url);
-      form.setAttribute("method", "POST");
+      form.setAttribute("method", method);
   
       for (var property in data) {
         if (data.hasOwnProperty(property)) {
