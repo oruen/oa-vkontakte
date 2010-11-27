@@ -6,7 +6,6 @@ Gem::Specification.new do |s|
   s.name = %q{oa-vkontakte}
   s.version = Oa::Vkontakte::VERSION
   s.authors = ["Nick Recobra"]
-  s.date = %q{2010-10-20}
   s.summary = %q{OmniAuth extension for vkontakte.ru authentication}
   s.description = %q{OmniAuth extension for vkontakte.ru authentication}
   s.email = %q{oruenu@gmail.com}
