@@ -24,7 +24,7 @@ module OmniAuth
       def request_phase
         Rack::Response.new(vkontakte_login_page).finish
       end
-      
+
       def auth_hash
         OmniAuth::Utils.deep_merge(super(), {
           'uid' => request[:uid],
