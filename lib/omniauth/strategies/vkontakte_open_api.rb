@@ -4,6 +4,7 @@ require 'omniauth/strategies/vkontakte_open_api/view_helper'
 module OmniAuth
   class Configuration
     attr_accessor :vkontakte_app_id
+    attr_accessor :vkontakte_app_key
   end
 end
 
@@ -13,9 +14,10 @@ module OmniAuth
       include OmniAuth::Strategy
       include ViewHelper::PageHelper
 
-      def initialize(app, app_id, options = {})
+      def initialize(app, app_id, app_key, options = {})
         @options = options
         OmniAuth.config.vkontakte_app_id = app_id
+        OmniAuth.config.vkontakte_app_key = app_key
         super(app, :vkontakte)
       end
 

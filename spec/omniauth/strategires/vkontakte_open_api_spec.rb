@@ -5,9 +5,9 @@ describe OmniAuth::Strategies::VkontakteOpenApi, :type => :strategy do
   include OmniAuth::Test::StrategyTestCase
 
   def strategy
-    [OmniAuth::Strategies::VkontakteOpenApi, 1983892]
+    [OmniAuth::Strategies::VkontakteOpenApi, 1983892, 'top_secret']
   end
-  
+
   describe 'POST /auth/vkontakte_open_api/callback с логином и паролем' do
     context "успешный запрос" do
       before(:each) do
@@ -20,6 +20,11 @@ describe OmniAuth::Strategies::VkontakteOpenApi, :type => :strategy do
           'uid' => '1234567890'
         }
       end
+
+      it "должен устанавливаться защищенный ключ" do
+        OmniAuth.config.vkontakte_app_key.should == 'top_secret'
+      end
+  
       
       it 'должен быть успешным' do
         last_response.should be_ok

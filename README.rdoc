@@ -9,7 +9,7 @@
 Добавить в config/initializers/omniauth.rb:
 
   Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :vkontakte_open_api, <ID приложения>
+    provider :vkontakte_open_api, <ID приложения>, <Защищенный ключ приложения>
   end
 
 Если ещё не определен, добавить путь в config/routes.rb:
