@@ -27,6 +27,19 @@ module OmniAuth
         Rack::Response.new(vkontakte_login_page).finish
       end
 
+      def callback_phase
+        app_cookie = request.cookies["vk_app_#{OmniAuth.config.vkontakte_app_id}"]
+        return fail!(:invalid_credentials) unless app_cookie
+        args = app_cookie.split("&")
+        sig_index = args.index { |arg| arg =~ /^sig=/ }
+        return fail!(:invalid_credentials) unless sig_index
+        sig = args.delete_at(sig_index)
+        puts Digest::MD5.new.hexdigest(args.sort.join('') + OmniAuth.config.vkontakte_app_key)
+        puts sig
+        return fail!(:invalid_credentials) unless Digest::MD5.new.hexdigest(args.sort.join('') + OmniAuth.config.vkontakte_app_key) == sig[4..-1]
+        super
+      end
+
       def auth_hash
         OmniAuth::Utils.deep_merge(super(), {
           'uid' => request[:uid],
