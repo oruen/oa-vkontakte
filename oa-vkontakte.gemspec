@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency(%q<oa-core>, ["~> 0.1.4"])
   s.add_development_dependency(%q<rspec>, ["~> 2.1.0"])
   s.add_development_dependency(%q<yard>, [">= 0"])
+  s.add_development_dependency(%q<rack-test>, ["~> 0.5.6"])
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

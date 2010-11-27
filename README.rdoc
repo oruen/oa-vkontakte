@@ -35,8 +35,8 @@
     'user_info' => {
       'name' => 'Nick Recobra',
       'nickname' => 'oruen',
-      'firstName' => 'Nick',
-      'lastName' => 'Recobra',
+      'first_name' => 'Nick',
+      'last_name' => 'Recobra',
       'image' => 'http://cs191.vkontakte.ru/u00001/e_375bc433.jpg', # путь до вконтактовского аватара
       'urls' => { 'Page' => 'http://vkontakte.ru/id1234567890' } 
     }
