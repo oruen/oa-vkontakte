@@ -114,7 +114,7 @@ HEADER
     document.getElementById("vk_api_transport").appendChild(el);
   }());
 </script>
-<div id="vk_login" style="margin: 0 auto 20px auto;" onclick="vkLogin.doLogin();"></div>
+<div id="vk_login" onclick="vkLogin.doLogin();"></div>
 BUTTON
           end
 
