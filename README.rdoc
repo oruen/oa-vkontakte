@@ -42,6 +42,21 @@
     }
   }
 
+== Интеграция с Devise
+
+Devise с версии 1.2.rc интегрирован с OmniAuth. Подключить к нему <tt>oa-vkontakte</tt> достаточно просто, дописав в <tt>config/initializers/devise.rb</tt>:
+  config.omniauth :vkontakte, <ID приложения>, <Защищенный ключ приложения>
+Callback будет приходить действию Devise::OmniauthCallbacks#vkontakte, так что придется озаботиться его наличием. Это удобно сделать, поменяв контроллер для callback'ов OmniAuth в <tt>routes.rb</tt>:
+  devise_for :users, :controllers => { :omniauth_callbacks => "authentications" }
+AuthenticationsController в этом случае выглядит как-то так:
+  class AuthenticationsController < Devise::OmniauthCallbacksController
+    def vkontakte
+      omniauth = request.env["omniauth.auth"]
+      # создание или аутентификация пользователя
+      ...
+    end
+  end
+
 == Ссылки
 
 OmniAuth: http://github.com/intridea/omniauth
