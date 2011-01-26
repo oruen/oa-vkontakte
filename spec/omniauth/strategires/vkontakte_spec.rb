@@ -1,11 +1,11 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe OmniAuth::Strategies::VkontakteOpenApi, :type => :strategy do
+describe OmniAuth::Strategies::Vkontakte, :type => :strategy do
 
   include OmniAuth::Test::StrategyTestCase
 
   def strategy
-    [OmniAuth::Strategies::VkontakteOpenApi, 1983892, '6FF1PUlZfEyutJxctvtd']
+    [OmniAuth::Strategies::Vkontakte, 1983892, '6FF1PUlZfEyutJxctvtd']
   end
 
   describe 'POST /auth/vkontakte_open_api/callback с логином и паролем' do

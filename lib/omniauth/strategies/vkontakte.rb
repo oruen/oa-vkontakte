@@ -1,5 +1,5 @@
 require 'omniauth/vkontakte'
-require 'omniauth/strategies/vkontakte_open_api/view_helper'
+require 'omniauth/strategies/vkontakte/view_helper'
 
 module OmniAuth
   class Configuration
@@ -10,7 +10,7 @@ end
 
 module OmniAuth
   module Strategies
-    class VkontakteOpenApi
+    class Vkontakte
       include OmniAuth::Strategy
       include ViewHelper::PageHelper
 

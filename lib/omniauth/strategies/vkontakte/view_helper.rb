@@ -1,7 +1,7 @@
 # coding: utf-8
 module OmniAuth
   module Strategies
-    class VkontakteOpenApi
+    class Vkontakte
       class ViewHelper
         module PageHelper
           def vkontakte_login_page
