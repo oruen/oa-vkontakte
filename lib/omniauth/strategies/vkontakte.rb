@@ -34,8 +34,6 @@ module OmniAuth
         sig_index = args.index { |arg| arg =~ /^sig=/ }
         return fail!(:invalid_credentials) unless sig_index
         sig = args.delete_at(sig_index)
-        puts Digest::MD5.new.hexdigest(args.sort.join('') + OmniAuth.config.vkontakte_app_key)
-        puts sig
         return fail!(:invalid_credentials) unless Digest::MD5.new.hexdigest(args.sort.join('') + OmniAuth.config.vkontakte_app_key) == sig[4..-1]
         super
       end
