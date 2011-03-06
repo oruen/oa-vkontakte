@@ -29,7 +29,7 @@ HEADER
               '<div id="vk_login" onclick="vkLogin.doLogin();"></div>'
             end
 <<-BUTTON
-<div id="vk_api_transport"></div>
+<div id="vk_api_transport" style="float:left"></div>
 <script type="text/javascript">
   window.vkAsyncInit = function() {
     VK.init({
