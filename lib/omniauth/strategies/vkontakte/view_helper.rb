@@ -22,7 +22,12 @@ module OmniAuth
 HEADER
           end
           
-          def vkontakte_login_button
+          def vkontakte_login_button control = nil
+            default_control = false
+            control ||= begin
+              default_control = true
+              '<div id="vk_login" onclick="vkLogin.doLogin();"></div>'
+            end
 <<-BUTTON
 <div id="vk_api_transport"></div>
 <script type="text/javascript">
@@ -31,7 +36,7 @@ HEADER
       apiId: '#{OmniAuth.config.vkontakte_app_id}',
       nameTransportPath: "/xd_receiver.html"
     });
-    VK.UI.button('vk_login');
+    #{ "VK.UI.button('vk_login');" if default_control }
   };
   vkLogin = {
     doLogin: function() {
@@ -114,7 +119,7 @@ HEADER
     document.getElementById("vk_api_transport").appendChild(el);
   }());
 </script>
-<div id="vk_login" onclick="vkLogin.doLogin();"></div>
+#{ control }
 BUTTON
           end
 
