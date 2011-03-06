@@ -20,6 +20,10 @@
 
   <%= vkontakte_login_button %>
 
+Если хотите свою красивую картинку вместо дефолтной вконтактовской кнопки, делайте так:
+
+  <%= vkontakte_login_button(link_to_function( image_tag("/path/to/image"), "vkLogin.doLogin()" )) %>
+
 Также кнопка доступна по адресу /auth/vkontakte, но форма там передается GET-запросом. Можно пропробовать встроить её как iframe.
 
 После клика на кнопку и разрешения добавления приложения, будет совершен POST-запрос на /auth/vkontakte/callback.
@@ -75,4 +79,4 @@ OmniAuth: http://github.com/intridea/omniauth
 
 == Copyright
 
-Copyright (c) 2010 Nick Recobra. See LICENSE for details.
+Copyright (c) 2010-2011 Nick Recobra. See LICENSE for details.
