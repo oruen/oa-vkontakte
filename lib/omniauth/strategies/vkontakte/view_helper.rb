@@ -28,7 +28,7 @@ HEADER
               default_control = true
               '<div id="vk_login" onclick="vkLogin.doLogin();"></div>'
             end
-<<-BUTTON
+            button= <<-BUTTON
 <div id="vk_api_transport" style="float:left"></div>
 <script type="text/javascript">
   window.vkAsyncInit = function() {
@@ -121,6 +121,7 @@ HEADER
 </script>
 #{ control }
 BUTTON
+            button.respond_to?(:html_safe) ? button.html_safe : button
           end
 
           def vkontakte_footer
