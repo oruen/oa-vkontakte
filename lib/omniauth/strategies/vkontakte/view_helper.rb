@@ -40,7 +40,7 @@ HEADER
   };
   vkLogin = {
     doLogin: function() {
-      VK.Auth.login(vkLogin.loginResult);
+      VK.Auth.login(vkLogin.loginResult, '#{OmniAuth.config.vkontakte_params[:permissions]}');
     },
     redirectWithPost: function(url, data) {
       data = data || {};
